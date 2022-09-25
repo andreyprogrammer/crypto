@@ -1,4 +1,4 @@
-package com.example.anderymerkurev.crypto
+package com.example.andreymerkurev.crypto
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

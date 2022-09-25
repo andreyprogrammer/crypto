@@ -1,4 +1,4 @@
-package com.example.anderymerkurev.crypto
+package com.example.andreymerkurev.crypto
 
 import org.junit.Test
 
