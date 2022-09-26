@@ -3,4 +3,5 @@
     <string name="crypto_title">Список криптовалют</string>
     <string name="chip1">USD</string>
     <string name="chip2">EUR</string>
+    <string name="symbol_of_coin">Symbol of coin</string>
 </resources>

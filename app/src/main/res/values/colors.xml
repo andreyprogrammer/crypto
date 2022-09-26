@@ -9,7 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selected_chip">#FBEFDC</color>
     <color name="selected_chip_text">#FFAD25</color>
-    <color name="chip">#FAFAFA</color>
+    <color name="chip">#E0E0E0</color>
     <color name="chip_text">#FF000000</color>
+    <color name="item_name">#525252</color>
+    <color name="item_price">#525252</color>
+    <color name="item_symbol">#9B9B9B</color>
+    <color name="item_price_change_plus">#2A9D8F</color>
 
 </resources>
