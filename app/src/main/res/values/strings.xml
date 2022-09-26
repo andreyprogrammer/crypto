@@ -4,4 +4,6 @@
     <string name="chip1">USD</string>
     <string name="chip2">EUR</string>
     <string name="symbol_of_coin">Symbol of coin</string>
+    <string name="error_text">Случилась какая-то ошибка :(\nПопробуем снова?</string>
+    <string name="try_button_text">Попробовать</string>
 </resources>
