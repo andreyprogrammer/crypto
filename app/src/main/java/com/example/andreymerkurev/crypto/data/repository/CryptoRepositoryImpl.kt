@@ -1,12 +1,13 @@
 package com.example.andreymerkurev.crypto.data.repository
 
+import com.example.andreymerkurev.crypto.data.network.CryptoApi
 import com.example.andreymerkurev.crypto.domain.entities.Cryptocurrency
 import com.example.andreymerkurev.crypto.domain.entities.DetailCryptocurrency
 import com.example.andreymerkurev.crypto.domain.entities.RequestResult
 import com.example.andreymerkurev.crypto.domain.repository.ICryptoRepository
 
 class CryptoRepositoryImpl(
-    private val cryptoApi: CriptoApi
+    private val cryptoApi: CryptoApi
 ) : ICryptoRepository {
     override suspend fun getAllCryptocurrencies(
         vsCurrency: String,
