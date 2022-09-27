@@ -6,4 +6,7 @@
     <string name="symbol_of_coin">Symbol of coin</string>
     <string name="error_text">Случилась какая-то ошибка :(\nПопробуем снова?</string>
     <string name="try_button_text">Попробовать</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="description_title">Описание</string>
+    <string name="category_title">Категории</string>
 </resources>
