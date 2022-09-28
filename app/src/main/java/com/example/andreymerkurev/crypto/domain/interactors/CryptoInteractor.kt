@@ -1,30 +1,31 @@
 package com.example.andreymerkurev.crypto.domain.interactors
 
-import com.example.andreymerkurev.crypto.domain.entities.Cryptocurrency
-import com.example.andreymerkurev.crypto.domain.entities.DetailCryptocurrency
+import com.example.andreymerkurev.crypto.domain.entities.CryptoCurrency
+import com.example.andreymerkurev.crypto.domain.entities.DetailCryptoCurrency
 import com.example.andreymerkurev.crypto.domain.entities.RequestResult
 import com.example.andreymerkurev.crypto.domain.repository.ICryptoRepository
+import javax.inject.Inject
 
 interface ICryptoInteractor {
-    suspend fun getAllCryptocurrencies(
+    suspend fun getAllCryptoCurrencies(
         vsCurrency: String,
         perPage: Int,
         page: Int
-    ): RequestResult<List<Cryptocurrency>>
+    ): RequestResult<List<CryptoCurrency>>
 
-    suspend fun getCryptocurrency(id: String): RequestResult<DetailCryptocurrency>
+    suspend fun getCryptocurrency(id: String): RequestResult<DetailCryptoCurrency>
 }
 
-class CryptoInteractor(
+class CryptoInteractor @Inject constructor(
     private val cryptoRepository: ICryptoRepository
 ) : ICryptoInteractor {
-    override suspend fun getAllCryptocurrencies(
+    override suspend fun getAllCryptoCurrencies(
         vsCurrency: String,
         perPage: Int,
         page: Int
-    ): RequestResult<List<Cryptocurrency>> =
+    ): RequestResult<List<CryptoCurrency>> =
         cryptoRepository.getAllCryptocurrencies(vsCurrency, perPage, page)
 
-    override suspend fun getCryptocurrency(id: String): RequestResult<DetailCryptocurrency> =
+    override suspend fun getCryptocurrency(id: String): RequestResult<DetailCryptoCurrency> =
         cryptoRepository.getCryptocurrency(id)
 }
