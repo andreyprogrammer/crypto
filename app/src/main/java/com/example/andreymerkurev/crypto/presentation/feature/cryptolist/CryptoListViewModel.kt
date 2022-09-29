@@ -35,11 +35,14 @@ class CryptoListViewModel @Inject constructor(
         page: Int
     ) {
         viewModelScope.launch {
-            Log.d("key01", "vsCurrency=$vsCurrency")
+            Log.d("key01", "vm vsCurrency=$vsCurrency")
             try {
                 _isLoading.value = true
                 _isError.value = false
+                _listCryptoCurrencies.value = listOf()
+                Log.d("key01", "before")
                 val response = cryptoInteractor.getAllCryptoCurrencies(vsCurrency, perPage, page)
+                Log.d("key01", "resp = ${response}")
                 when (response) {
                     is RequestResult.Success -> {
                         Log.d("key01", "${response.data}")
@@ -47,13 +50,13 @@ class CryptoListViewModel @Inject constructor(
                         _isLoading.value = false
                     }
                     is RequestResult.Error -> {
-                        _listCryptoCurrencies.value = listOf()
+                        Log.d("key01", "err1")
                         _isLoading.value = false
                         _isError.value = true
                     }
                 }
             } catch (e: Exception) {
-                _listCryptoCurrencies.value = listOf()
+                Log.d("key01", "err2")
                 _isLoading.value = false
                 _isError.value = true
             }

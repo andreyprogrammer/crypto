@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -72,12 +74,36 @@ class CryptoListFragment : Fragment() {
             (binding.cryptoListRecyclerView.adapter as CryptoListAdapter).notifyDataSetChanged()
         }
 
-        binding.chipGroup.setOnCheckedStateChangeListener { _, checkedId ->
-            Log.d("key01", "checkedId=$checkedId")
-            if (checkedId == binding.usdChip) {
+        cryptoListViewModel.isLoading.observeForever { isLoading ->
+            if (isLoading) {
+                binding.cryptoListProgress.visibility = View.VISIBLE
+            } else {
+                binding.cryptoListProgress.visibility = View.GONE
+            }
+        }
+
+        cryptoListViewModel.isError.observeForever { isError ->
+            if (isError) {
+                binding.imageError.visibility = View.VISIBLE
+                binding.textError.visibility = View.VISIBLE
+                binding.btnTryAgainList.visibility = View.VISIBLE
+            } else {
+                binding.imageError.visibility = View.GONE
+                binding.textError.visibility = View.GONE
+                binding.btnTryAgainList.visibility = View.GONE
+            }
+        }
+
+        binding.btnTryAgainList.setOnClickListener {
+            cryptoListViewModel.getCryptoCurrenciesList(selectCurrency(), PER_PAGE, PAGE)
+        }
+
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedId ->
+            if (checkedId[0] == R.id.usdChip) {
                 cryptoListViewModel.getCryptoCurrenciesList("usd", PER_PAGE, PAGE)
-            } else
+            } else {
                 cryptoListViewModel.getCryptoCurrenciesList("eur", PER_PAGE, PAGE)
+            }
         }
     }
 
