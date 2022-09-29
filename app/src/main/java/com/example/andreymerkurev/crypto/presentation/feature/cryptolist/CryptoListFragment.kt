@@ -56,6 +56,7 @@ class CryptoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Injector.getCryptoListComponent().inject(this)
         cryptoListAdapter = CryptoListAdapter(
+            requireContext(),
             onClick = {
                 val bundle = bundleOf("id" to it)
                 view.findNavController()
@@ -106,11 +107,6 @@ class CryptoListFragment : Fragment() {
                 cryptoListViewModel.getCryptoCurrenciesList("eur", PER_PAGE, PAGE)
             }
         }
-    }
-
-    private fun openDetailsFragment(view: View, id: String) {
-        val bundle = bundleOf("id" to id)
-        view.findNavController().navigate(R.id.action_cryptoListFragment_to_detailsFragment, bundle)
     }
 
     private fun selectCurrency(): String {

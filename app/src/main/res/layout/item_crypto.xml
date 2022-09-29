@@ -57,7 +57,6 @@
         android:id="@+id/cryptoItemPriceChange"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/item_price_change_plus"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/cryptoItemPrice"
         app:layout_constraintTop_toBottomOf="@id/cryptoItemPrice"
