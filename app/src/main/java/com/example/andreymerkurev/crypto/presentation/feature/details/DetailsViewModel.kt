@@ -1,17 +1,17 @@
-package com.example.andreymerkurev.crypto.presentation.feature.cryptolist
+package com.example.andreymerkurev.crypto.presentation.feature.details
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.andreymerkurev.crypto.domain.entities.CryptoCurrency
+import com.example.andreymerkurev.crypto.domain.entities.DetailCryptoCurrency
 import com.example.andreymerkurev.crypto.domain.entities.RequestResult
 import com.example.andreymerkurev.crypto.domain.interactors.ICryptoInteractor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CryptoListViewModel @Inject constructor(
+class DetailsViewModel @Inject constructor(
     private val cryptoInteractor: ICryptoInteractor
 ) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>().apply {
@@ -24,25 +24,23 @@ class CryptoListViewModel @Inject constructor(
     }
     val isError: LiveData<Boolean> = _isError
 
-    private val _listCryptoCurrencies = MutableLiveData<List<CryptoCurrency>>().apply {
-        value = listOf()
+    private val _cryptoDetails = MutableLiveData<DetailCryptoCurrency>().apply {
+        value = DetailCryptoCurrency()
     }
-    val listCryptoCurrencies: LiveData<List<CryptoCurrency>> = _listCryptoCurrencies
+    val cryptoDetails: LiveData<DetailCryptoCurrency> = _cryptoDetails
 
-    fun getCryptoCurrenciesList(
-        vsCurrency: String,
-        perPage: Int,
-        page: Int
+    fun getCryptoDetails(
+        id: String
     ) {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 _isError.value = false
-                _listCryptoCurrencies.value = listOf()
-                val response = cryptoInteractor.getAllCryptoCurrencies(vsCurrency, perPage, page)
+                _cryptoDetails.value = DetailCryptoCurrency()
+                val response = cryptoInteractor.getCryptocurrency(id)
                 when (response) {
                     is RequestResult.Success -> {
-                        _listCryptoCurrencies.value = response.data
+                        _cryptoDetails.value = response.data
                         _isLoading.value = false
                     }
                     is RequestResult.Error -> {

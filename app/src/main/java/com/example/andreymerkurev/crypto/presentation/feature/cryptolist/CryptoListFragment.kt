@@ -1,23 +1,21 @@
 package com.example.andreymerkurev.crypto.presentation.feature.cryptolist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.example.andreymerkurev.crypto.R
 import com.example.andreymerkurev.crypto.data.network.PicassoLoader
 import com.example.andreymerkurev.crypto.databinding.FragmentCryptolistBinding
 import com.example.andreymerkurev.crypto.presentation.di.Injector
 import com.example.andreymerkurev.crypto.presentation.di.ViewModelFactory
-import com.example.andreymerkurev.crypto.presentation.feature.ItemClickListener
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +23,6 @@ import javax.inject.Inject
 class CryptoListFragment : Fragment() {
     private lateinit var binding: FragmentCryptolistBinding
     private lateinit var cryptoListAdapter: CryptoListAdapter
-    private lateinit var itemClickListener: ItemClickListener
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -58,11 +55,15 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Injector.getCryptoListComponent().inject(this)
-        Log.d("key01", "start")
         cryptoListAdapter = CryptoListAdapter(
-            onClick = { itemClickListener.onItemClick(it) },
+            onClick = {
+                val bundle = bundleOf("id" to it)
+                view.findNavController()
+                    .navigate(R.id.action_cryptoListFragment_to_detailsFragment, bundle)
+            },
             picassoLoader
         )
+
         binding.cryptoListRecyclerView.adapter = cryptoListAdapter
 
         lifecycleScope.launch {
@@ -107,12 +108,17 @@ class CryptoListFragment : Fragment() {
         }
     }
 
+    private fun openDetailsFragment(view: View, id: String) {
+        val bundle = bundleOf("id" to id)
+        view.findNavController().navigate(R.id.action_cryptoListFragment_to_detailsFragment, bundle)
+    }
+
     private fun selectCurrency(): String {
         var curr = ""
         if (binding.usdChip.isChecked)
             curr = "usd"
         if (binding.eurChip.isChecked)
-            curr =  "eur"
+            curr = "eur"
         return curr
     }
 }
