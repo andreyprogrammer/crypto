@@ -22,7 +22,7 @@ class CryptoListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoListViewHolder {
         return CryptoListViewHolder(
             context,
-            ItemCryptoBinding.inflate(LayoutInflater.from(parent.context)),
+            ItemCryptoBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             onClick,
             picassoLoader
         )
@@ -72,7 +72,7 @@ class CryptoListAdapter(
             binding.cryptoItemName.text = cryptoCurrency.name
             binding.cryptoItemSymbol.text = cryptoCurrency.symbol
             binding.cryptoItemPrice.text = cryptoCurrency.currentPrice.toString()
-            binding.cryptoItemPriceChange.text = cryptoCurrency.priceChange.toString()
+            binding.cryptoItemPriceChange.text = "${cryptoCurrency.priceChange}%"
             picassoLoader.loadImage(cryptoCurrency.image, binding.cryptoItemImage)
         }
     }
